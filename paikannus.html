@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta charset="utf-8">
+    
+    
+    <title></title>
+</head>
+    
+    
+    <body>
+        <p><button onclick="kerroSijainti()">Kerro sijaintini</button></p>
+
+        <div id="sijainti"></div>
+        
+        
+        <script>
+            function kerroSijainti() {
+                var paikka = document.getElementById("sijainti");
+                
+                if (!navigator.geolocation){
+                    paikka.innerHTML="<p>Selaimessasi ei toimi paikannus. Kokeile toista selainta.</p>";
+                    return;
+                }
+                
+            function success(position) {
+                var latitude  = position.coords.latitude;
+                var longitude=position.coords.longitude;
+                paikka.innerHTML ='<p>Latitude: '+latitude+'°<br>Longitude:  '+longitude+'°</p>';
+                
+                var img=new Image();
+                img.src="https://maps.googleapis.com/maps/api/staticmap?center="+latitude+","+longitude+"&zoom=13&size=300x300&sensor=false"; 
+                sijainti.appendChild(img);
+                };
+            
+            function error() {
+              paikka.innerHTML = "valitettavasti sijaintisi ei löydy";
+              };
+            
+            paikka.innerHTML = "<p>Paikannetaan…</p>";
+            navigator.geolocation.getCurrentPosition(success, error);                
+            };
+            
+
+        </script>
+    </body>
+    
+    
+</html>
